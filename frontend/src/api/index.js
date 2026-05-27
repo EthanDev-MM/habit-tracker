@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://habit-tracker-production-b15d.up.railway.app/api",
-});
+baseURL: "https://habit-tracker-production-08c6.up.railway.app/api",
 
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
