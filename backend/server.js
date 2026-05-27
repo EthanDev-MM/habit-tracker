@@ -9,11 +9,8 @@ const logRoutes = require("./routes/logs");
 const app = express();
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://habit-tracker-kappa-bice.vercel.app"
-  ],
-  credentials: true
+  origin: "*",
+  credentials: false
 }));
 
 app.use(express.json());
