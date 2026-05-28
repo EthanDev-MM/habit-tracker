@@ -13,6 +13,10 @@ router.post("/register", async (req, res) => {
   try {
     const { email, name, password } = req.body;
     if (!email || !password || !name)
+// Gmail only
+const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+if (!gmailRegex.test(email))
+  return res.status(400).json({ error: "Gmail address သာ အသုံးပြုခွင့်ရှိသည်" });
       return res.status(400).json({ error: "All fields required" });
 
     const exists = await prisma.user.findUnique({ where: { email } });
@@ -70,4 +74,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = router;s
