@@ -13,11 +13,11 @@ router.post("/register", async (req, res) => {
   try {
     const { email, name, password } = req.body;
     if (!email || !password || !name)
-// Gmail only
-const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-if (!gmailRegex.test(email))
-  return res.status(400).json({ error: "Gmail address သာ အသုံးပြုခွင့်ရှိသည်" });
       return res.status(400).json({ error: "All fields required" });
+
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailRegex.test(email))
+      return res.status(400).json({ error: "Gmail address သာ အသုံးပြုခွင့်ရှိသည်" });
 
     const exists = await prisma.user.findUnique({ where: { email } });
     if (exists) return res.status(400).json({ error: "Email already exists" });
@@ -47,7 +47,6 @@ router.get("/verify", async (req, res) => {
       where: { id: user.id },
       data: { verified: true, verifyToken: null }
     });
-
     res.json({ message: "Email verified successfully! ✅ Login လုပ်နိုင်ပြီ။" });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -74,4 +73,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;s
+module.exports = router;
