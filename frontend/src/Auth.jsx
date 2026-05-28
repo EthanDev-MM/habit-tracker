@@ -10,6 +10,14 @@ export default function Auth({ onLogin }) {
   async function handleSubmit() {
     setLoading(true);
     setError("");
+
+    // Gmail restriction ONLY for Register
+    if (!isLogin && !form.email.trim().toLowerCase().endsWith("@gmail.com")) {
+      setError("Only @gmail.com emails are allowed for registration");
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = isLogin
         ? await login({ email: form.email, password: form.password })
